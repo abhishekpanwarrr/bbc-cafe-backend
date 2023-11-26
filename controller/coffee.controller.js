@@ -21,7 +21,6 @@ export const createCoffee = async (req, res) => {
     ingredients,
     special_ingredient,
   } = req.body;
-  console.log("req.files", req.files);
   try {
     const avatarLocalPath = req.files?.avatar[0]?.path;
 
@@ -40,8 +39,6 @@ export const createCoffee = async (req, res) => {
 
     const avatar = await uploadOnCloudinary(avatarLocalPath);
     const coverImage = await uploadOnCloudinary(coverImageLocalPath);
-    console.log("avatar", avatar);
-    console.log("coverImage", coverImage);
     if (!avatar) {
       return res.status(400).json("Avatar is required after upload");
     }
@@ -59,7 +56,7 @@ export const createCoffee = async (req, res) => {
     return res.status(201).json(result);
   } catch (error) {
     console.log("error", error);
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: error?.message });
   }
 };
 
