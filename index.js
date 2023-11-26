@@ -5,13 +5,14 @@ import coffeeRouter from "./routes/coffee.route.js";
 import userRouter from "./routes/user.route.js";
 import stripeRouter from "./routes/stripe.route.js";
 import ordersRouter from "./routes/orders.route.js";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 app.get("/", (req, res) => {
   res.json({ message: "Hello there" });
 });
