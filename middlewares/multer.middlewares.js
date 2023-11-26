@@ -3,10 +3,18 @@ import fs from "fs";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const tempDir = "./public/temp";
+    const tempDir = './public/temp';
+
+    // Check if the directory exists, create it if it doesn't
     if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir, { recursive: true });
+      try {
+        fs.mkdirSync(tempDir, { recursive: true });
+      } catch (error) {
+        console.error('Error creating directory:', error);
+        return cb(error, null);
+      }
     }
+
     cb(null, tempDir);
   },
   filename: function (req, file, cb) {
