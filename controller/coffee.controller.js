@@ -53,7 +53,8 @@ export const createCoffee = async (req, res) => {
       price,
       imagelink_square: images,
     });
-    return res.status(201).json(result);
+    res.header("Content-Type", "application/json");
+    res.status(201).json(result);
   } catch (error) {
     console.log("error", error);
     res.status(500).json({ message: error });
